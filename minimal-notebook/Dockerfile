@@ -47,8 +47,8 @@ RUN wget --quiet https://github.com/krallin/tini/releases/download/v0.9.0/tini &
 ENV CONDA_DIR /opt/conda
 ENV PATH $CONDA_DIR/bin:$PATH
 ENV SHELL /bin/bash
-ENV NB_USER jovyan
-ENV NB_UID 1000
+ENV NB_USER core
+ENV NB_UID 500
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
@@ -56,9 +56,9 @@ ENV LANGUAGE en_US.UTF-8
 # Create jovyan user with UID=1000 and in the 'users' group
 RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     mkdir -p /opt/conda && \
-    chown jovyan /opt/conda
+    chown $NB_USER /opt/conda
 
-USER jovyan
+USER core
 
 # Setup jovyan home directory
 RUN mkdir /home/$NB_USER/work && \
@@ -96,4 +96,4 @@ COPY jupyter_notebook_config.py /home/$NB_USER/.jupyter/
 RUN chown -R $NB_USER:users /home/$NB_USER/.jupyter
 
 # Switch back to jovyan to avoid accidental container runs as root
-USER jovyan
+USER core

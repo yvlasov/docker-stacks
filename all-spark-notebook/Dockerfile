@@ -17,7 +17,7 @@ RUN apt-get update && \
     gcc && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-USER jovyan
+USER core
 
 # R packages
 RUN conda config --add channels r && \
