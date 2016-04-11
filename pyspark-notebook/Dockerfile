@@ -50,7 +50,6 @@ USER core
 
 # Install Python 3 packages
 RUN conda install --quiet --yes \
-    'ipython=4.1*' \
     'ipywidgets=4.1*' \
     'pandas=0.17*' \
     'matplotlib=1.5*' \
@@ -60,7 +59,7 @@ RUN conda install --quiet --yes \
     && conda clean -tipsy
 
 # Install Python 3 packages
-RUN conda install --quiet --yes -p $CONDA_DIR/envs/python3 python=$PY3VER \
+RUN conda create --quiet --yes -p $CONDA_DIR/envs/python3 python=$PY3VER \
     'ipython=4.1*' \
     'ipywidgets=4.1*' \
     'pandas=0.17*' \
