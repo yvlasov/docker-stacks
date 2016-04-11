@@ -104,7 +104,10 @@ RUN jq --arg v "$CONDA_DIR/envs/python3/bin/python" \
         $CONDA_DIR/share/jupyter/kernels/python3/kernel.json > /tmp/kernel.json && \
         mv /tmp/kernel.json $CONDA_DIR/share/jupyter/kernels/python3/kernel.json
 
+USER root
 # Add local files as late as possible to avoid cache busting
 RUN rm -f /usr/local/bin/start-notebook.sh
 COPY start-notebook.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/start-notebook.sh
+
+USER core
